@@ -1,19 +1,47 @@
-pipeline{ 
+def gv
+pipeline {
     agent any
+    environment {
+        NAME = 'NARENDRA'
+    }
+    parameters{
+        choice(name:'chacolete',choices:['dairy milk','5star','much'],description:'')
+        booleanParam(defaultValue: true, description: '', name: 'BOOLEAN')
+    }
+
     stages {
-        stage('build'){
-            steps{
-                echo "building the application"
+        stage('init'){
+            steps {
+                script { 
+                    gv = load "script.groovy"
+                }
+            }
+            
+        }
+        stage('build') {
+            when{
+                expression {
+                    params.BOOLEAN
+                }
+            }
+            steps {
+                script {
+                    gv.Buildapp()
+                }
             }
         }
-        stage('test'){
-            steps{
-                echo "testing the application"
+        stage('Test') {
+            steps {
+                script {
+                    gv.Testapp()
+                }
             }
         }
-        stage('deploy'){
-            steps{
-                echo "deploying the application"
+        stage('deploy') {
+            steps {
+                script {
+                    gv.Deployapp()
+                }
             }
         }
         
