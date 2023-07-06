@@ -30,7 +30,7 @@ pipeline {
         stage('deploy') {
             steps {
                 script {
-                    echo "i want this ${params.chacolete} chocolete"
+                    echo "i want this ${params.chacolete} chocolate what type of chocolatss do you have"
                 }
             }
         }
